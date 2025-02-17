@@ -1,22 +1,14 @@
-def is_even(n) -> bool:
-    """
-    this function checks if a number is even
-    :param n: n is an integer
-    :return: if the number is even return True
-    """
-    return not n & 1 #홀수는 이진수로 표현할 때 마지막이 무조건 1인점을 고안
-    # if n % 2 == 0:
-    #     return True
-    # return False
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
 
+def nCr(n, r) -> int :
+    numerator = factorial(n)
+    denominator = factorial(r) * factorial(n - r)
+    return int (numerator / denominator)
 
 n = int(input())
-print(is_even(n))
-
-# a = 10
-# b = 11
-# print(a and b)  # different of 'and' and '&'
-# print(a & b)
-# print(a or b)
-# print(a | b)
-# print(a ^b)
+r = int(input())
+print(nCr(n, r))
