@@ -9,6 +9,21 @@ def nCr(n, r) -> int :
     denominator = factorial(r) * factorial(n - r)
     return int (numerator / denominator)
 
-n = int(input())
-r = int(input())
-print(nCr(n, r))
+# n = int(input())
+# r = int(input())
+# print(nCr(n, r))
+
+def octal_number(n):
+    """
+    This function returns the octal number
+    :param n: number to calculate octal number
+    :return: octal number
+    """
+    if n == 0:
+        return ""
+    else :
+        return octal_number(n // 8) + str(n % 8)
+
+
+c = int(input())
+print(octal_number(c))
