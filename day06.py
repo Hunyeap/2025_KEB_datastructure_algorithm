@@ -1,18 +1,37 @@
-import csv
+# Assignment day06
+# v1.5) https://github.com/inhadeepblue/2024_KEB_datastructure_algorithm 의
+# v0.7 guess number 예제를 자동화하고 로그파일(guess.txt)을 남기도록 코드를 수정하시오.
+# 단, 해당 프로그램이 로그시간을 갖도록 한다
 import random
 
-try:
-    with open("KSEB_students.csv", 'r', encoding="euc-kr") as fp:
-        student_list = fp.readlines()
-        student_list.remove("이상혁\n")
-        student_list.remove("조윤하\n")
-        student_list.remove("김철중\n")
-        student_list.remove("김현민\n")
-        student_list.remove("김찬빈\n")
-        for i in range(3):
-            random_pick = random.choice(student_list)
-            print(random_pick, end = '')
-            student_list.remove(random_pick)
-        #print(student_list[random.randint(0, len(student_list) - 1)])
-except FileNotFoundError as err:
-    print(err)
+def guess_number(low, high, answer, chance) -> int:
+    mid =  (low+high) // 2
+    print(f'Guess number is {mid}')
+    fp.write(f'Guess number is {mid}\n')
+    while chance != 0:
+        if mid == answer:
+            print(f'You win. Answer is {answer}')
+            fp.write(f'You win. Answer is {answer}\n')
+            return
+        elif mid > answer:
+            chance = chance - 1
+            print(f'{mid} is bigger. Chance left : {chance}')
+            fp.write(f'{mid} is bigger. Chance left : {chance}\n')
+            return guess_number(low, mid-1, answer, chance)
+        else:
+            chance = chance - 1
+            print(f'{mid} is lower. Chance left : {chance}')
+            fp.write(f'{mid} is lower. Chance left : {chance}\n')
+            return guess_number(mid+1, high, answer, chance)
+    else:
+        print(f'You lost. Answer is {answer}')
+        fp.write(f'You lost. Answer is {answer}')
+
+
+if __name__ == "__main__":
+    low = 1
+    high = 100
+    chance = 7
+    answer = random.randint(low, high)
+    with open('guess.txt', 'w') as fp:
+        guess_number(low, high, answer, chance)
