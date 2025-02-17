@@ -4,9 +4,12 @@ def is_even(n) -> bool:
     :param n: n is an integer
     :return: if the number is even return True
     """
-    if n % 2 == 0:
-        return True
-    return False
+    return not n & 1
+    # if n % 2 == 0:
+    #     return True
+    # return False
+
+
 n = int(input())
 print(is_even(n))
 
