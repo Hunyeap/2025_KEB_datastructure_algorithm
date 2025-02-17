@@ -1,29 +1,14 @@
-def factorial(n):
-    if n == 0:
-        return 1
+n = int(input())
+def sum(n):
+    if n % 2 == 0:
+        return int((1 + n) * (n/2))
+
     else:
-        return n * factorial(n-1)
+        return int(((n + 1) * ((n-1)/2)) + ((n+1)/2))
 
-def nCr(n, r) -> int :
-    numerator = factorial(n)
-    denominator = factorial(r) * factorial(n - r)
-    return int (numerator / denominator)
+print(sum(n))
 
-# n = int(input())
-# r = int(input())
-# print(nCr(n, r))
-
-def octal_number(n):
-    """
-    This function returns the octal number
-    :param n: number to calculate octal number
-    :return: octal number
-    """
-    if n == 0:
-        return 0
-    else :
-        return octal_number(n // 8) * 10  + (n % 8)
-
-
-c = int(input())
-print(octal_number(c))
+r = 0
+for i in range(n+1):
+    r = r + i
+print(r)
