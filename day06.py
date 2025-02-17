@@ -20,9 +20,9 @@ def octal_number(n):
     :return: octal number
     """
     if n == 0:
-        return ""
+        return 0
     else :
-        return octal_number(n // 8) + str(n % 8)
+        return octal_number(n // 8) * 10  + (n % 8)
 
 
 c = int(input())
