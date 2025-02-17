@@ -4,7 +4,7 @@ def is_even(n) -> bool:
     :param n: n is an integer
     :return: if the number is even return True
     """
-    return not n & 1
+    return not n & 1 #홀수는 이진수로 표현할 때 마지막이 무조건 1인점을 고안
     # if n % 2 == 0:
     #     return True
     # return False
