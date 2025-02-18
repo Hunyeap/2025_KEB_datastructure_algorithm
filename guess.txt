@@ -1,14 +1,8 @@
 Guess number is 50
 50 is lower. Chance left : 6
 Guess number is 75
-75 is lower. Chance left : 5
-Guess number is 88
-88 is bigger. Chance left : 4
-Guess number is 81
-81 is lower. Chance left : 3
-Guess number is 84
-84 is lower. Chance left : 2
-Guess number is 86
-86 is bigger. Chance left : 1
-Guess number is 85
-You win. Answer is 85
+75 is bigger. Chance left : 5
+Guess number is 62
+62 is bigger. Chance left : 4
+Guess number is 56
+You win. Answer is 56
