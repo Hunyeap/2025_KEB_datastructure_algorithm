@@ -8,10 +8,10 @@ class Stack:
     def pop(self):
         return self.items.pop()
 
-    def size(self):
+    def size(self) -> object :
         return len(self.items)
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return len(self.items) == 0
 
     def peek(self):
@@ -21,7 +21,10 @@ s1 = Stack()
 s1.push(-9)
 s1.push(11)
 s1.push(977)
+print(s1.size())
 print(s1.pop())
 print(s1.peek())
 print(s1.pop())
-print(s1.peek())
+print(s1.is_empty())
+print(s1.pop())
+print(s1.is_empty())
