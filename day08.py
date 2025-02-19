@@ -1,3 +1,6 @@
+from asyncio import current_task
+
+
 class TreeNode:
     def __init__(self):
         self.left = None
@@ -44,4 +47,46 @@ if __name__ == "__main__":
             if current.right is None:
                 print(f"{find_group}이(가) 존재하지 않습니다.")
                 break
+            current = current.right
+    delete_name = input()
+    parent = None
+    while True:
+        if delete_name == current.data:
+
+            if current.left == None and current.right == None:
+                if parent.left == current:
+                    parent.left = None
+                else:
+                    parent.right = None
+                del(current)
+
+            elif current.left != None and current.right == None:
+                if parent.left == current:
+                    parent.left = current.left
+                else:
+                    parent.right = current.left
+                del(current)
+
+
+            elif current.left == None and current.right != None:
+                if parent.left == current:
+                    parent.left = current.left
+                else:
+                    parent.right = current.left
+                del (current)
+
+            print(delete_name,'이(가) 삭제됨')
+            break
+
+        elif delete_name < current.data:
+            if current.left != None:
+                print(delete_name,'이(가) 트리에 없음')
+                break
+            parent = current
+            current = current.left
+        else:
+            if current.right == None:
+                print(delete_name,'이(가) 트리에 없음')
+                break
+            parent = current
             current = current.right
