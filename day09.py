@@ -16,6 +16,30 @@ def print_graph(g) :
         print()
     print()
 
+from collections import deque
+
+
+def bfs(g, queue, visited, find_vtx):
+    if not queue:
+        return False
+
+    current = queue.pop(0)  # 큐에서 첫 번째 요소를 꺼냄
+    if current == find_vtx:  # 찾고자 하는 정점이라면 종료
+        return True
+
+    visited.add(current)  # 방문한 노드 기록
+
+    # 인접 노드를 찾아서 방문하지 않았다면 큐에 추가
+    for vertex in range(g.SIZE):
+        if g.graph[current][vertex] != 0 and vertex not in visited and vertex not in queue:
+            queue.append(vertex)
+
+    return bfs(g, queue, visited, find_vtx)  # 재귀 호출
+
+
+def find_vertex_bfs(g, find_vtx):
+    return bfs(g, [0], set(), find_vtx)
+
 
 def dfs(g, current, find_vtx, visited):
     visited.append(current)
@@ -80,8 +104,8 @@ while len(new_ary) > g_size - 1:	# 간선의 개수가 '정점 개수-1'일 때�
     G1.graph[start][end] = 0
     G1.graph[end][start] = 0
 
-    startYN = find_vertex(G1, start)
-    endYN = find_vertex(G1, end)
+    startYN = find_vertex_bfs(G1, start)
+    endYN = find_vertex_bfs(G1, end)
 
     if startYN and endYN :
         del new_ary[index]
@@ -91,3 +115,6 @@ while len(new_ary) > g_size - 1:	# 간선의 개수가 '정점 개수-1'일 때�
         index += 1
 
 print_graph(G1)
+# 기존 DFS 탐색과 함께 BFS 탐색 결과도 확인
+print("DFS 탐색 결과:", find_vertex(G1, 부산))
+print("BFS 탐색 결과:", find_vertex_bfs(G1, 부산))
