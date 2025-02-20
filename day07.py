@@ -1,106 +1,68 @@
-class TreeNode:
-	def __init__(self):
-		self.left = None
-		self.data = None
-		self.right = None
-
-
-def insert(root, value):
-    if root is None:
-        node = TreeNode()
-        node.data = value
-        return node
-
-    if value < root.data:
-        root.left = insert(root.left, value)
+def is_queue_full() :
+    global size, queue, front, rear
+    if (rear + 1) % size == front:  # !
+        return True
     else:
-        root.right = insert(root.right, value)
-    return root
+        return False
 
 
-def search(root, value):
-    current = root
-    while current:
-        if value == current.data:
-            return current
-        elif value < current.data:
-            current = current.left
-        else:
-            current = current.right
-    return None
+def is_queue_empty() :
+    global size, queue, front, rear
+    if front == rear:
+        return True
+    else :
+        return False
 
 
-def post_order(node):
-    if node is None:
+def en_queue(data) :
+    global size, queue, front, rear
+    if is_queue_full():
+        print("큐가 꽉 찼습니다.")
         return
-    post_order(node.left)
-    post_order(node.right)
-    print(f"{node.data} ", end='')
+    #rear += 1
+    rear = (rear + 1) % size  # !
+    queue[rear] = data
 
 
-def delete(root, value):
-    if root is None:
-        return root
-    if value < root.data:
-        root.left = delete(root.left, value)
-    elif value > root.data:
-        root.right = delete(root.right, value)
-    else:
-        if root.left is None and root.right is None:
-            return None
-        elif root.left is None:
-            return root.right
-        elif root.right is None:
-            return root.left
-        else:  # 자식이 두 개인 경우
-            root.data = find_min(root.right).data
-            root.right = delete(root.right, root.data)
-    return root
+def de_queue() :
+    global size, queue, front, rear
+    if is_queue_empty():
+        print("큐가 비었습니다.")
+        return None
+    #front += 1
+    front = (front + 1) % size  # !
+    data = queue[front]
+    queue[front] = None
+    return data
 
 
-def find_min(node):
-    current = node
-    while current.left is not None:
-        current = current.left
-    return current
+def peek() :
+    global size, queue, front, rear
+    if is_queue_empty():
+        print("큐가 비었습니다.")
+        return None
+    return queue[(front + 1) % size]  # !
 
 
-if __name__ == "__main__":
-    numbers = [10, 15, 8, 3, 9]
-    root = None
+size = int(input("큐의 크기를 입력 : "))
+queue = [None for _ in range(size)]
+front = rear = 0  # !
 
-    for number in numbers:
-        root = insert(root, number)
-
+if __name__ == "__main__" :
     while True:
-        print("\n--- 트리 관리 메뉴 ---")
-        print("1. 값 삽입")
-        print("2. 값 삭제")
-        print("3. 값 찾기")
-        print("4. 트리 확인 (후위 오더)")
-        print("5. 종료")
-        choice = input("원하는 작업을 선택하세요: ")
-        if choice == '1':
-            value = int(input("삽입할 값을 입력하세요: "))
-            root = insert(root, value)
-            print(f"{value} 삽입 완료")
-        elif choice == '2':
-            value = int(input("삭제할 값을 입력하세요: "))
-            if search(root, value):
-                root = delete(root, value)
-                print(f"{value} 삭제 완료")
-            else:
-                print(f"{value}은(는) 트리에 존재하지 않습니다.")
-        elif choice == '3':
-            value = int(input("찾고 싶은 값을 입력하세요: "))
-            if search(root, value):
-                print(f"{value}을(를) 찾았습니다.")
-            else:
-                print(f"{value}이(가) 존재하지 않습니다.")
-        elif choice == '4':
-            post_order(root)
-        elif choice == '5':
-            print("프로그램을 종료합니다.")
+        menu = input("삽입(E)/삭제(D)/확인(P)/종료(X) : ")
+        if menu == 'X' or menu == 'x':
             break
+        elif menu== 'E' or menu == 'e' :
+            data = input("입력할 데이터 : ")
+            en_queue(data)
+            print(queue)
+        elif menu== 'D' or menu == 'd' :
+            print("삭제된 데이터 : ", de_queue())
+            print(queue)
+        elif menu== 'P' or menu == 'p' :
+            print("확인된 데이터 : ", peek())
+            print(queue)
         else:
-            print("잘못된 선택입니다. 다시 선택하세요.")
+            print("입력이 잘못됨")
+    print("프로그램 종료!")
